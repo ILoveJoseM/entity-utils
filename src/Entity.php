@@ -79,7 +79,12 @@ class Entity implements \ArrayAccess, Arrayable, \Iterator, \JsonSerializable
 
     public function toArray()
     {
-        return $this->data;
+        $data = [];
+        foreach ($this->data as $field => $value) {
+            $value instanceof Arrayable && $value = $value->toArray();
+            $data[$field] = $value;
+        }
+        return $data;
     }
 
     public function offsetExists($offset)
@@ -130,7 +135,7 @@ class Entity implements \ArrayAccess, Arrayable, \Iterator, \JsonSerializable
 
     public function jsonSerialize()
     {
-        return json_encode($this->data, 320);
+        return $this->data;
     }
 
     public function isIndexArray(array $data)
