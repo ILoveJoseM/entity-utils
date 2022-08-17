@@ -29,7 +29,6 @@ class ContainerEntityFactory implements IEntityFactory
      * @param $className
      * @param $parameters
      * @return mixed
-     * @author 陈煜 <chenyu33@shein.com> 2022/8/9 10:10
      */
     public function make($className, $parameters)
     {
