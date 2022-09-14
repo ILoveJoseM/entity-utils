@@ -154,4 +154,24 @@ class Entity implements \ArrayAccess, Arrayable, \Iterator, \JsonSerializable
     {
         return Entity::class;
     }
+
+    public function __isset($offset)
+    {
+        return isset($this->data[$offset]);
+    }
+
+    public function __get($offset)
+    {
+        return $this->data[$offset] ?? null;
+    }
+
+    public function __set($offset, $value)
+    {
+        $this->data[$offset] = $value;
+    }
+
+    public function __unset($offset)
+    {
+        unset($this->data[$offset]);
+    }
 }
