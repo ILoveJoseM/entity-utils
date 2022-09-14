@@ -58,7 +58,9 @@ class Entity implements \ArrayAccess, Arrayable, \Iterator, \JsonSerializable
                 /** @var Collection $collection */
                 $collection = new $collection();
                 foreach ($value as $item) {
-                    $item = $this->factory()->make($entity, ["data" => $item]);
+                    if(is_array($item)){
+                        $item = $this->factory()->make($entity, ["data" => $item]);
+                    }
                     $collection->push($item);
                 }
 
