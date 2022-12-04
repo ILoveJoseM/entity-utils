@@ -58,7 +58,9 @@ class Entity implements \ArrayAccess, Arrayable, \Iterator, \JsonSerializable
                 /** @var Collection $collection */
                 $collection = new $collection();
                 foreach ($value as $item) {
-                    $item = $this->factory()->make($entity, ["data" => $item]);
+                    if(is_array($item)){
+                        $item = $this->factory()->make($entity, ["data" => $item]);
+                    }
                     $collection->push($item);
                 }
 
@@ -151,5 +153,25 @@ class Entity implements \ArrayAccess, Arrayable, \Iterator, \JsonSerializable
     protected function arrayAttributeDefaultEntity()
     {
         return Entity::class;
+    }
+
+    public function __isset($offset)
+    {
+        return isset($this->data[$offset]);
+    }
+
+    public function __get($offset)
+    {
+        return $this->data[$offset] ?? null;
+    }
+
+    public function __set($offset, $value)
+    {
+        $this->data[$offset] = $value;
+    }
+
+    public function __unset($offset)
+    {
+        unset($this->data[$offset]);
     }
 }
